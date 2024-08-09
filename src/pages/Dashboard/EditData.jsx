@@ -1,7 +1,7 @@
 import BaseInput from "@/components/input";
 import { Modal, ModalFooter } from "@/components/modal";
 import { useState } from "react";
-import * as Switch from "@radix-ui/react-switch";
+// import * as Switch from "@radix-ui/react-switch";
 import BaseButton from "@/components/button";
 import { useDispatch } from "react-redux";
 import { setModal } from "@/store/uiSlice";
@@ -17,17 +17,30 @@ const ModalForm = ({ data }) => {
   };
 
   const handleEdit = () => {
-    dispatch(updateData({
-      id: form.id,
-      username: form.username,
-      status: form.status
-    }))
+    dispatch(
+      updateData({
+        id: form.id,
+        username: form.username,
+        name: form.name,
+        email: form.email,
+      })
+    );
     handleClose();
-  }
+  };
 
   return (
     <Modal id={data.id} title="Edit Data">
       <div className="space-y-4 p-6">
+        <BaseInput
+          label="Name"
+          value={form?.name}
+          onChange={(evt) =>
+            setForm({
+              ...form,
+              name: evt.target.value,
+            })
+          }
+        />
         <BaseInput
           label="Username"
           value={form?.username}
@@ -38,7 +51,17 @@ const ModalForm = ({ data }) => {
             })
           }
         />
-        <div>
+        <BaseInput
+          label="Email"
+          value={form?.email}
+          onChange={(evt) =>
+            setForm({
+              ...form,
+              email: evt.target.value,
+            })
+          }
+        />
+        {/* <div>
           <p className="mb-2 font-semibold text-sm">Status</p>
           <Switch.Root
             checked={form?.status}
@@ -47,7 +70,7 @@ const ModalForm = ({ data }) => {
           >
             <Switch.Thumb className="block w-[21px] h-[21px] bg-white rounded-full transition-transform duration-100 translate-x-0.5 will-change-transform data-[state=checked]:translate-x-[19px]" />
           </Switch.Root>
-        </div>
+        </div> */}
       </div>
       <ModalFooter>
         <BaseButton color="light" size="md" onClick={() => handleClose()}>

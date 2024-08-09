@@ -1,20 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialData = [
-  {
-    id: "1",
-    username: "adrian",
-    status: true,
-  },
-  {
-    id: "2",
-    username: "yoga",
-    status: false,
-  },
-];
-
 const initialState = {
-  data: initialData
+  data: []
 };
 
 const dataSlice = createSlice({
@@ -31,11 +18,12 @@ const dataSlice = createSlice({
       })
     },
     updateData: (state, action) => {
-      const {id, username, status} = action.payload;
+      const {id, username, name, email} = action.payload;
       const index = state.data.findIndex(item => item.id === id);
       if(index !== -1){
+        state.data[index].name = name;
+        state.data[index].email = email;
         state.data[index].username = username;
-        state.data[index].status = status;
       }
     },
     deleteData: (state, action) => {
