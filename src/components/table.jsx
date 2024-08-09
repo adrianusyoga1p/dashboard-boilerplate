@@ -1,4 +1,4 @@
-const BaseTable = ({ columns, source, page, perPage, slot }) => {
+const BaseTable = ({ columns, source, page, perPage, slot, loading }) => {
   const getDataByKey = (data, path) =>
     path.split(".").reduce((acc, part) => acc && acc[part], data);
   return (
@@ -46,8 +46,11 @@ const BaseTable = ({ columns, source, page, perPage, slot }) => {
           </tbody>
         )}
       </table>
-      {!source.length && (
+      {!source || !source.length && !loading && (
         <div className="p-4 text-center text-sm text-gray-500">No Data</div>
+      )}
+      {loading && (
+        <div className="p-4 text-center text-sm text-gray-500">Loading..</div>
       )}
     </div>
   );

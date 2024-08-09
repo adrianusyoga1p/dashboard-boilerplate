@@ -3,22 +3,26 @@ import { Modal, ModalButton } from "@/components/modal";
 import BaseTable from "@/components/table";
 import ModalForm from "./EditData";
 import BaseButton from "@/components/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteData, setData } from "@/store/dataSlice";
+import api from "@/api/client";
 
 const Dashboard = () => {
   const dataColumns = [
     { title: "#", key: "#", type: "increment", align: "center" },
     { title: "Action", key: "action", type: "slot", align: "center" },
-    { title: "Status", key: "status", type: "slot", align: "center" },
+    { title: "Name", key: "name", type: "default", align: "center" },
     {
       title: "Username",
       key: "username",
       type: "default",
       align: "center",
     },
+    { title: "Email", key: "email", type: "default", align: "center" },
   ];
+
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data.data);
@@ -29,6 +33,21 @@ const Dashboard = () => {
   const handleDelete = (id) => {
     dispatch(deleteData({ id }));
   };
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchData = async () => {
+      const res = await api({
+        method: "GET",
+        url: "/users",
+      });
+      if (!res.error) {
+        setLoading(false)
+        dispatch(setData(res));
+      }
+    };
+    fetchData();
+  }, []);
 
   const slot = {
     action: (data) => (
@@ -66,6 +85,7 @@ const Dashboard = () => {
           page={1}
           source={data}
           slot={slot}
+          loading={loading}
         />
       </Card>
     </div>
