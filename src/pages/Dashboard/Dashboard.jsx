@@ -3,7 +3,9 @@ import { Modal, ModalButton } from "@/components/modal";
 import BaseTable from "@/components/table";
 import ModalForm from "./EditData";
 import BaseButton from "@/components/button";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteData, setData } from "@/store/dataSlice";
 
 const Dashboard = () => {
   const dataColumns = [
@@ -18,24 +20,14 @@ const Dashboard = () => {
     },
   ];
 
-  let initialData = [
-    {
-      id: "1",
-      username: "adrian",
-      status: true,
-    },
-    {
-      id: "2",
-      username: "yoga",
-      status: false,
-    },
-  ];
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.data.data);
+  useEffect(() => {
+    dispatch(setData(data));
+  });
 
-  const [data, setData] = useState(initialData)
-
-  const deleteData = (id) => {
-    const updateData = data.filter((n) => n.id != id);
-    setData(updateData)
+  const handleDelete = (id) => {
+    dispatch(deleteData({ id }));
   };
 
   const slot = {
@@ -43,7 +35,9 @@ const Dashboard = () => {
       <>
         <div className="flex justify-center gap-2 items-center">
           <ModalButton id={data.id}>Edit</ModalButton>
-          <BaseButton color="red" onClick={() => deleteData(data.id)}>Delete</BaseButton>
+          <BaseButton color="red" onClick={() => handleDelete(data.id)}>
+            Delete
+          </BaseButton>
         </div>
         <ModalForm data={data} />
       </>
