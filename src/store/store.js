@@ -1,9 +1,13 @@
 import uiReducer from '@/store/uiSlice'
-import { configureStore } from '@reduxjs/toolkit'
+import dataReducer from '@/store/dataSlice'
+import { combineSlices, configureStore } from '@reduxjs/toolkit'
+
+export const rootReducer = combineSlices(uiReducer, dataReducer)
 
 const store = configureStore({
   reducer: {
-    ui: uiReducer
+    ui: uiReducer,
+    data: dataReducer
   }
 })
 
