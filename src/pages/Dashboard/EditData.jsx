@@ -1,23 +1,29 @@
 import BaseInput from "@/components/input";
 import { Modal, ModalFooter } from "@/components/modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as Switch from "@radix-ui/react-switch";
 import BaseButton from "@/components/button";
 import { useDispatch } from "react-redux";
 import { setModal } from "@/store/uiSlice";
+import { updateData } from "@/store/dataSlice";
 
 const ModalForm = ({ data }) => {
-  const [form, setForm] = useState(null);
-
-  useEffect(() => {
-    setForm(data);
-  }, []);
+  const [form, setForm] = useState(data);
 
   const dispatch = useDispatch();
 
   const handleClose = () => {
     dispatch(setModal({ id: data.id, isOpen: false }));
   };
+
+  const handleEdit = () => {
+    dispatch(updateData({
+      id: form.id,
+      username: form.username,
+      status: form.status
+    }))
+    handleClose();
+  }
 
   return (
     <Modal id={data.id} title="Edit Data">
@@ -44,8 +50,12 @@ const ModalForm = ({ data }) => {
         </div>
       </div>
       <ModalFooter>
-        <BaseButton color="light" size="md" onClick={() => handleClose()}>Close</BaseButton>
-        <BaseButton size="md">Submit</BaseButton>
+        <BaseButton color="light" size="md" onClick={() => handleClose()}>
+          Close
+        </BaseButton>
+        <BaseButton size="md" onClick={() => handleEdit()}>
+          Submit
+        </BaseButton>
       </ModalFooter>
     </Modal>
   );
