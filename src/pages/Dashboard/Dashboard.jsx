@@ -6,13 +6,13 @@ import BaseButton from "@/components/button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteData, setData } from "@/store/dataSlice";
-import api from "@/api/client";
+import { apiUsers } from "@/api/endpoint/users";
 
 const Dashboard = () => {
   const dataColumns = [
     { title: "#", key: "#", type: "increment", align: "center" },
     { title: "Action", key: "action", type: "slot", align: "center" },
-    { title: "Name", key: "name", type: "default", align: "center" },
+    { title: "Role", key: "role", type: "default", align: "center" },
     {
       title: "Username",
       key: "username",
@@ -26,27 +26,22 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data.data);
-  useEffect(() => {
-    dispatch(setData(data));
-  });
 
   const handleDelete = (id) => {
     dispatch(deleteData({ id }));
   };
 
-  useEffect(() => {
+  const loadData = async () => {
     setLoading(true);
-    const fetchData = async () => {
-      const res = await api({
-        method: "GET",
-        url: "/users",
-      });
-      if (!res.error) {
-        setLoading(false)
-        dispatch(setData(res));
-      }
-    };
-    fetchData();
+    const response = await apiUsers({limit: 10});
+    if (!response.error) {
+      setLoading(false);
+      dispatch(setData(response.users));
+    }
+  };
+
+  useEffect(() => {
+    loadData();
   }, []);
 
   const slot = {
