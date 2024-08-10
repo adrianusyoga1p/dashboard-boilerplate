@@ -15,3 +15,11 @@ export const apiRefreshToken = (refreshToken) => {
     data: { refreshToken },
   });
 };
+
+export const apiAuthMe = (data) => {
+  return api({
+    method: "GET",
+    url: "/auth/me",
+    data
+  })
+}
