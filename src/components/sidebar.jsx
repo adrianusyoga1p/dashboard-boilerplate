@@ -1,8 +1,9 @@
 import { faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setToggle } from "@/store/uiSlice";
+import { useStore } from "@/utils/useStore";
 // import Logo from "@/assets/logo.png"
 
 const Sidebar = () => {
@@ -18,7 +19,7 @@ const Sidebar = () => {
       icon: "fa-user-gear",
     },
   ];
-  const ui = useSelector((state) => state.ui.value);
+  const { ui } = useStore();
   const dispatch = useDispatch();
   return (
     <aside
