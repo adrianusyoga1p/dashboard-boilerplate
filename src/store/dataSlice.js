@@ -18,10 +18,10 @@ const dataSlice = createSlice({
       })
     },
     updateData: (state, action) => {
-      const {id, username, name, email} = action.payload;
+      const {id, username, role, email} = action.payload;
       const index = state.data.findIndex(item => item.id === id);
       if(index !== -1){
-        state.data[index].name = name;
+        state.data[index].role = role;
         state.data[index].email = email;
         state.data[index].username = username;
       }
