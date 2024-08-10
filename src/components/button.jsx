@@ -1,4 +1,4 @@
-const BaseButton = ({ size = "sm", color = "blue", children, onClick }) => {
+const BaseButton = ({ size = "sm", color = "blue", children, onClick, type }) => {
   const sizeButton = () => {
     if (size == "sm") {
       return "text-xs py-1.5 px-3 rounded";
@@ -9,7 +9,7 @@ const BaseButton = ({ size = "sm", color = "blue", children, onClick }) => {
     } else if (size == "xl") {
       return "py-4 px-8 rounded-lg text-xl";
     } else {
-      return (size = "sm");
+      return (size = "md");
     }
   };
 
@@ -33,6 +33,7 @@ const BaseButton = ({ size = "sm", color = "blue", children, onClick }) => {
   return (
     <button
       onClick={onClick}
+      type={type}
       className={`font-medium ${sizeButton()} ${colorButton()}`}
     >
       {children}
