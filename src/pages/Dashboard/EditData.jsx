@@ -21,7 +21,7 @@ const ModalForm = ({ data }) => {
       updateData({
         id: form.id,
         username: form.username,
-        name: form.name,
+        role: form.role,
         email: form.email,
       })
     );
@@ -31,16 +31,6 @@ const ModalForm = ({ data }) => {
   return (
     <Modal id={data.id} title="Edit Data">
       <div className="space-y-4 p-6">
-        <BaseInput
-          label="Name"
-          value={form?.name}
-          onChange={(evt) =>
-            setForm({
-              ...form,
-              name: evt.target.value,
-            })
-          }
-        />
         <BaseInput
           label="Username"
           value={form?.username}
@@ -58,6 +48,16 @@ const ModalForm = ({ data }) => {
             setForm({
               ...form,
               email: evt.target.value,
+            })
+          }
+        />
+        <BaseInput
+          label="Name"
+          value={form?.role}
+          onChange={(evt) =>
+            setForm({
+              ...form,
+              role: evt.target.value,
             })
           }
         />
