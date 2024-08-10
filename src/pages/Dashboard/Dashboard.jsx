@@ -4,9 +4,10 @@ import BaseTable from "@/components/table";
 import ModalForm from "./EditData";
 import BaseButton from "@/components/button";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteData, setData } from "@/store/dataSlice";
 import { apiUsers } from "@/api/endpoint/users";
+import { useStore } from "@/utils/useStore";
 
 const Dashboard = () => {
   const dataColumns = [
@@ -25,7 +26,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.data.data);
+  const { data } = useStore();
 
   const handleDelete = (id) => {
     dispatch(deleteData({ id }));
@@ -33,7 +34,7 @@ const Dashboard = () => {
 
   const loadData = async () => {
     setLoading(true);
-    const response = await apiUsers({limit: 10});
+    const response = await apiUsers({ limit: 10 });
     if (!response.error) {
       setLoading(false);
       dispatch(setData(response.users));
