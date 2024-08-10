@@ -1,30 +1,34 @@
+import { logout } from "@/store/authSlice";
+import store from "@/store/store";
 import axios from "axios";
-// import { useAuthStore } from '@/store';
 
-const baseURL = import.meta.env.VITE_API_URL
+const baseURL = import.meta.env.VITE_API_URL;
 
-const useApi = (payload) => {
+const api = (payload) => {
   return new Promise((resolve, reject) => {
     const baseClient = axios.create({
       baseURL,
       validateStatus: (status) => status >= 200 && status < 300,
     });
 
-    // baseClient.interceptors.request.use((config) => {
-    //   const { token } = useAuthStore();
-    //   if (token) config.headers.Authorization = `bearer ${token}`;
-    //   return config;
-    // });
+    baseClient.interceptors.request.use(
+      (config) => {
+        const token = store.getState().auth.token;
+        if (token) config.headers.Authorization = `Bearer ${token}`;
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
 
-    // baseClient.interceptors.response.use(
-    //   (response) => response,
-    //   (error) => {
-    //     if (error.response && error.response.status == 401) {
-    //       useAuthStore().logout()
-    //     }
-    //     return Promise.reject(error)
-    //   },
-    // );
+    baseClient.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 400) {
+          store.dispatch(logout());
+        }
+        return Promise.reject(error);
+      }
+    );
 
     baseClient(payload)
       .then((response) => {
@@ -40,4 +44,4 @@ const useApi = (payload) => {
   });
 };
 
-export default useApi;
+export default api;
