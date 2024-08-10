@@ -19,10 +19,7 @@ const ModalForm = ({ data }) => {
   const handleEdit = () => {
     dispatch(
       updateData({
-        id: form.id,
-        username: form.username,
-        role: form.role,
-        email: form.email,
+        ...form
       })
     );
     handleClose();
@@ -58,6 +55,26 @@ const ModalForm = ({ data }) => {
             setForm({
               ...form,
               role: evt.target.value,
+            })
+          }
+        />
+        <BaseInput
+          label="Name"
+          value={form?.firstName}
+          onChange={(evt) =>
+            setForm({
+              ...form,
+              firstName: evt.target.value,
+            })
+          }
+        />
+        <BaseInput
+          label="Name"
+          value={form?.lastName}
+          onChange={(evt) =>
+            setForm({
+              ...form,
+              lastName: evt.target.value,
             })
           }
         />
