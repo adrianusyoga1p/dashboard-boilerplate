@@ -1,4 +1,4 @@
-const BaseInput = ({ label, onChange, value, type = 'text', placeholder }) => {
+const BaseInput = ({ label, onChange, value, type = 'text', placeholder, name }) => {
   return (
     <div>
       {label && (
@@ -9,7 +9,8 @@ const BaseInput = ({ label, onChange, value, type = 'text', placeholder }) => {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full p-2.5 rounded-md border border-gray-300"
+        name={name}
+        className="w-full p-2 rounded-md border border-gray-300"
       />
     </div>
   );
