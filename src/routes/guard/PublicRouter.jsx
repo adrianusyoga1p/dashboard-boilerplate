@@ -1,9 +1,8 @@
-import { useSelector } from "react-redux";
+import { useStore } from "@/utils/useStore";
 import { Navigate } from "react-router-dom";
 
 const PublicRouter = ({ children }) => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token);
+  const { isAuthenticated, token } = useStore();
 
   if (isAuthenticated && token) {
     return <Navigate to="/" replace />;

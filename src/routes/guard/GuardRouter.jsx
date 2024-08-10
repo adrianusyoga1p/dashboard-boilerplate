@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
+import { useStore } from "@/utils/useStore";
 import { Navigate, Outlet } from "react-router-dom";
 
 const GuardRouter = ({ children }) => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
+  const { isAuthenticated, user, token } = useStore();
 
   if (!isAuthenticated && !user && !token) {
     return <Navigate to="/login" replace />;
