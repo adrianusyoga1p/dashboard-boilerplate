@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: []
+  data: [],
 };
 
 const dataSlice = createSlice({
@@ -9,28 +9,26 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action) => {
-      state.data = action.payload
+      state.data = action.payload;
     },
     addData: (state, action) => {
       state.data.push({
         ...action.payload,
         status: true,
-      })
+      });
     },
     updateData: (state, action) => {
-      const {id, username, role, email} = action.payload;
-      const index = state.data.findIndex(item => item.id === id);
-      if(index !== -1){
-        state.data[index].role = role;
-        state.data[index].email = email;
-        state.data[index].username = username;
+      const { id, ...newData } = action.payload;
+      const index = state.data.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        state.data[index] = { ...state.data[index], ...newData };
       }
     },
     deleteData: (state, action) => {
-      state.data = state.data.filter(item => item.id !== action.payload.id);
-    }
-  }
+      state.data = state.data.filter((item) => item.id !== action.payload.id);
+    },
+  },
 });
 
-export const {addData, setData, updateData, deleteData} = dataSlice.actions;
+export const { addData, setData, updateData, deleteData } = dataSlice.actions;
 export default dataSlice.reducer;
