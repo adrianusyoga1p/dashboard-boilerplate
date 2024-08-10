@@ -1,23 +1,24 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./components/sidebar";
-import { useSelector } from "react-redux";
 import Header from "./components/header";
 import { useEffect } from "react";
 import { apiRefreshToken } from "./api/endpoint/auth";
-import store from "./store/store";
+import { useStore } from "./utils/useStore";
 
 const Layout = () => {
-  const ui = useSelector((state) => state.ui.value);
+  const { ui, token } = useStore();
 
   const refreshToken = async () => {
-    await apiRefreshToken(store.getState().auth.token);
-  }
+    await apiRefreshToken(token);
+  };
 
   useEffect(() => {
-    setTimeout(() => {
+    const interval = setInterval(() => {
       refreshToken();
-    }, 6000000);
-  });
+    }, 1800000);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="min-h-[500px] relative">
       <Sidebar />
