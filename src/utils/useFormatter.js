@@ -1,4 +1,7 @@
-export function useFormatter(){
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function useFormatter() {
   const formatPrice = (price = 0) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -7,5 +10,9 @@ export function useFormatter(){
     }).format(parseFloat((price || "0").toString()) || 0);
   };
 
-  return {formatPrice}
+  const cn = (...inputs) => {
+    return twMerge(clsx(inputs));
+  };
+
+  return { formatPrice, cn };
 }
