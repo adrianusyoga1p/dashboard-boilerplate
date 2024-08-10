@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: true,
+  toggle: true,
   isOpen: {},
 };
 
@@ -10,7 +10,7 @@ export const uiSlice = createSlice({
   initialState,
   reducers: {
     setToggle: (state) => {
-      state.value = !state.value;
+      state.toggle = !state.toggle;
     },
     setModal: (state, action) => {
       state.isOpen[action.payload.id] = action.payload.isOpen;
