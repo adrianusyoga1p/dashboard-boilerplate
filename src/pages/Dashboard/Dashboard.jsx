@@ -1,5 +1,5 @@
 import Card from "@/components/card";
-import { Modal, ModalButton } from "@/components/modal";
+import { ModalButton } from "@/components/modal";
 import BaseTable from "@/components/table";
 import ModalForm from "./EditData";
 import BaseButton from "@/components/button";
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { deleteData, setData } from "@/store/dataSlice";
 import { apiUsers } from "@/api/endpoint/users";
 import { useStore } from "@/utils/useStore";
+import AddData from "./AddData";
 
 const Dashboard = () => {
   const dataColumns = [
@@ -28,6 +29,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const { data } = useStore();
 
+  // without api delete
   const handleDelete = (id) => {
     dispatch(deleteData({ id }));
   };
@@ -73,7 +75,8 @@ const Dashboard = () => {
   return (
     <div className="space-y-6">
       <Card title="Dashboard" subtitle="List of dashboard" action>
-        <Modal id="addData" title="Add Data" />
+        <AddData id="addData" />
+        {/* <Modal id="addData" title="Add Data" /> */}
         <BaseTable
           action
           columns={dataColumns}
