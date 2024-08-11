@@ -16,10 +16,10 @@ export const apiRefreshToken = (refreshToken) => {
   });
 };
 
-export const apiAuthMe = (data) => {
+export const apiAuthMe = (params) => {
   return api({
     method: "GET",
     url: "/auth/me",
-    data
+    params
   })
 }
