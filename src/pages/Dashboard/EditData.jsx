@@ -6,9 +6,12 @@ import BaseButton from "@/components/button";
 import { useDispatch } from "react-redux";
 import { setModal } from "@/store/uiSlice";
 import { updateData } from "@/store/dataSlice";
+import { apiUsersUpdate } from "@/api/endpoint/users";
+import { useSwal } from "@/utils/useSwal";
 
 const ModalForm = ({ data }) => {
   const [form, setForm] = useState(data);
+  const Swal = useSwal();
 
   const dispatch = useDispatch();
 
@@ -16,13 +19,19 @@ const ModalForm = ({ data }) => {
     dispatch(setModal({ id: data.id, isOpen: false }));
   };
 
-  const handleEdit = () => {
-    dispatch(
-      updateData({
-        ...form
-      })
+  const handleEdit = async () => {
+    const response = await apiUsersUpdate(
+      data.id,
+      dispatch(updateData({ ...form }))
     );
-    handleClose();
+    if (!response.error) {
+      handleClose();
+      Swal.fire({
+        title: "Success!",
+        text: "Your data is saved",
+        icon: "success",
+      });
+    }
   };
 
   return (
@@ -49,7 +58,7 @@ const ModalForm = ({ data }) => {
           }
         />
         <BaseInput
-          label="Name"
+          label="Role"
           value={form?.role}
           onChange={(evt) =>
             setForm({
@@ -59,7 +68,7 @@ const ModalForm = ({ data }) => {
           }
         />
         <BaseInput
-          label="Name"
+          label="First Name"
           value={form?.firstName}
           onChange={(evt) =>
             setForm({
@@ -69,7 +78,7 @@ const ModalForm = ({ data }) => {
           }
         />
         <BaseInput
-          label="Name"
+          label="Last Name"
           value={form?.lastName}
           onChange={(evt) =>
             setForm({
