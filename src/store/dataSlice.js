@@ -14,7 +14,6 @@ const dataSlice = createSlice({
     addData: (state, action) => {
       state.data.push({
         ...action.payload,
-        status: true,
       });
     },
     updateData: (state, action) => {
