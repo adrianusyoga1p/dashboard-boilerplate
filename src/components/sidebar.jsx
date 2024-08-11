@@ -1,9 +1,14 @@
-import { faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAnglesLeft,
+  faAnglesRight,
+  faSignOut,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setToggle } from "@/store/uiSlice";
 import { useStore } from "@/utils/useStore";
+import { logout } from "@/store/authSlice";
 // import Logo from "@/assets/logo.png"
 
 const Sidebar = () => {
@@ -21,6 +26,9 @@ const Sidebar = () => {
   ];
   const { ui } = useStore();
   const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <aside
       className={`fixed top-0 left-0 h-full bg-sky-700 py-4 ${
@@ -67,6 +75,15 @@ const Sidebar = () => {
               </li>
             );
           })}
+          <li>
+            <button
+              onClick={handleLogout}
+              className={`flex w-full gap-3 capitalize items-center text-sm py-2 px-3 rounded-md hover:bg-red-400 text-white transition ${!ui && 'justify-center'}`}
+            >
+              <FontAwesomeIcon className="w-4 h-4" icon={faSignOut} />
+              {ui && 'Login'}
+            </button>
+          </li>
         </ul>
       </nav>
     </aside>
