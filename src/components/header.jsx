@@ -1,15 +1,8 @@
-import { logout } from "@/store/authSlice";
 import { useStore } from "@/utils/useStore";
-import { useDispatch } from "react-redux";
-import BaseButton from "./button";
 
 const Header = () => {
-  const dispatch = useDispatch();
   const { user, ui } = useStore();
 
-  const handleLogout = () => {
-    dispatch(logout());
-  };
   return (
     <header
       className={`px-6 py-4 top-0 fixed left-0 bg-white z-10 shadow-sm ${
@@ -17,13 +10,11 @@ const Header = () => {
       }`}
     >
       <div className="flex items-center">
-        <div className="ml-auto flex gap-2 items-center">
-          <img src={user.image} alt="user" className="w-9 h-9 rounded-full" />
-          <div>
-            <div>{user.username}</div>
-            <div>{user.role}</div>
+        <div className="ml-auto">
+          <div className="flex gap-2 items-center">
+            <img src={user.image} alt="user" className="w-8 h-8 rounded-full" />
+            <span className="text-gray-700 text-sm">{user.username}</span>
           </div>
-          <BaseButton onClick={handleLogout} size="sm" color="red">Logout</BaseButton>
         </div>
       </div>
     </header>
