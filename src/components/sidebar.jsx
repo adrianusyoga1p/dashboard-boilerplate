@@ -81,7 +81,7 @@ const Sidebar = () => {
               className={`flex w-full gap-3 capitalize items-center text-sm py-2 px-3 rounded-md hover:bg-red-400 text-white transition ${!ui && 'justify-center'}`}
             >
               <FontAwesomeIcon className="w-4 h-4" icon={faSignOut} />
-              {ui && 'Login'}
+              {ui && 'Logout'}
             </button>
           </li>
         </ul>
