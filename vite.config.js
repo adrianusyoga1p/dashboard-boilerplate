@@ -5,10 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.VITE_API_URL,
-  define: {
-    __APP_ENV__: process.env.VITE_VERCEL_ENV
-  },
+  base: process.env.VITE_VERCEL_ENV,
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
