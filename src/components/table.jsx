@@ -1,4 +1,6 @@
-const BaseTable = ({ columns, source, page, perPage, slot, loading }) => {
+import Pagination from "./pagination";
+
+const BaseTable = ({ columns, source, page, slot, skip, loading, total, limit, onPageChange }) => {
   const getDataByKey = (data, path) =>
     path.split(".").reduce((acc, part) => acc && acc[part], data);
   return (
@@ -18,7 +20,7 @@ const BaseTable = ({ columns, source, page, perPage, slot, loading }) => {
             ))}
           </tr>
         </thead>
-        {source && (
+        {source && !loading && (
           <tbody className="text-sm">
             {source &&
               source.map((data, index) => (
@@ -35,7 +37,7 @@ const BaseTable = ({ columns, source, page, perPage, slot, loading }) => {
                             : getDataByKey(data, column.key) || "-"}
                         </span>
                       ) : column.type == "increment" ? (
-                        <span>{(page - 1) * perPage + index + 1}.</span>
+                        <span>{(page - 1) * limit + index + 1}.</span>
                       ) : column.type === "slot" && slot[column.key] ? (
                         slot[column.key](data, index)
                       ) : null}
@@ -52,6 +54,8 @@ const BaseTable = ({ columns, source, page, perPage, slot, loading }) => {
       {loading && (
         <div className="p-4 text-center text-sm text-gray-500">Loading..</div>
       )}
+      <Pagination total={total} limit={limit} onPageChange={onPageChange} />
+      {/* {total > 1 && } */}
     </div>
   );
 };
