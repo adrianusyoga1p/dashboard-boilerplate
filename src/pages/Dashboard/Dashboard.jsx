@@ -25,6 +25,11 @@ const Dashboard = () => {
   ];
 
   const [loading, setLoading] = useState(false);
+  const [params, setParams] = useState({
+    limit: 10,
+    skip: 0,
+    total: null,
+  });
 
   const dispatch = useDispatch();
   const { data } = useStore();
@@ -36,16 +41,25 @@ const Dashboard = () => {
 
   const loadData = async () => {
     setLoading(true);
-    const response = await apiUsers({ limit: 10 });
+    const response = await apiUsers({ ...params });
     if (!response.error) {
       setLoading(false);
+      setParams((prev) => ({
+        ...prev,
+        total: response.total,
+      }));
       dispatch(setData(response.users));
     }
   };
 
+  const onPageChange = (page) => {
+    params.skip = page;
+    loadData();
+  };
+
   useEffect(() => {
     loadData();
-  }, []);
+  }, [params.limit, params.skip]);
 
   const slot = {
     action: (data) => (
@@ -80,11 +94,14 @@ const Dashboard = () => {
         <BaseTable
           action
           columns={dataColumns}
-          perPage={10}
           page={1}
           source={data}
           slot={slot}
           loading={loading}
+          onPageChange={onPageChange}
+          limit={params.limit}
+          total={params.total}
+          skip={params.skip}
         />
       </Card>
     </div>
