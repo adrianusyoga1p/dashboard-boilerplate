@@ -14,5 +14,9 @@ export function useFormatter() {
     return twMerge(clsx(inputs));
   };
 
-  return { formatPrice, cn };
+  const setCookie = (key, value, expires) => {
+    document.cookie = key + "=" + (value || "") + "expires=" + expires;
+  };
+
+  return { formatPrice, cn, setCookie };
 }

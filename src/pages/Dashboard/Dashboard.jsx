@@ -1,7 +1,7 @@
 import Card from "@/components/card";
 import { ModalButton } from "@/components/modal";
 import BaseTable from "@/components/table";
-import ModalForm from "./EditData";
+import EditData from "./EditData";
 import BaseButton from "@/components/button";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,6 @@ import AddData from "./AddData";
 const Dashboard = () => {
   const dataColumns = [
     { title: "#", key: "#", type: "increment", align: "center" },
-    { title: "Action", key: "action", type: "slot", align: "center" },
     { title: "Role", key: "role", type: "default", align: "center" },
     {
       title: "Username",
@@ -22,6 +21,7 @@ const Dashboard = () => {
       align: "center",
     },
     { title: "Email", key: "email", type: "default", align: "center" },
+    { title: "Action", key: "action", type: "slot", align: "center" },
   ];
 
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const Dashboard = () => {
             Delete
           </BaseButton>
         </div>
-        <ModalForm data={data} />
+        <EditData data={data} />
       </>
     ),
     status: (data) => (
@@ -89,8 +89,7 @@ const Dashboard = () => {
   return (
     <div className="space-y-6">
       <Card title="Dashboard" subtitle="List of dashboard" action>
-        <AddData id="addData" />
-        {/* <Modal id="addData" title="Add Data" /> */}
+        <AddData id="addData" loadData={loadData} />
         <BaseTable
           action
           columns={dataColumns}
@@ -101,7 +100,6 @@ const Dashboard = () => {
           onPageChange={onPageChange}
           limit={params.limit}
           total={params.total}
-          skip={params.skip}
         />
       </Card>
     </div>

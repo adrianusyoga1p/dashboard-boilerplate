@@ -9,7 +9,7 @@ import { updateData } from "@/store/dataSlice";
 import { apiUsersUpdate } from "@/api/endpoint/users";
 import { useSwal } from "@/utils/useSwal";
 
-const ModalForm = ({ data }) => {
+const EditData = ({ data }) => {
   const [form, setForm] = useState(data);
   const Swal = useSwal();
 
@@ -110,4 +110,4 @@ const ModalForm = ({ data }) => {
   );
 };
 
-export default ModalForm;
+export default EditData;

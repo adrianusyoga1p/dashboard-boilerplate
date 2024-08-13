@@ -1,9 +1,12 @@
+// import { useFormatter } from "@/utils/useFormatter";
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isAuthenticated: !!localStorage.getItem("token"),
   user: JSON.parse(localStorage.getItem("user")),
   token: localStorage.getItem("token"),
 };
+
+// const { setCookie } = useFormatter();
 
 const authSlice = createSlice({
   name: "auth",

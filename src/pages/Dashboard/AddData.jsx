@@ -35,11 +35,10 @@ const AddData = ({ id }) => {
     }
   };
   return (
-    <Modal id={id}>
+    <Modal id={id} title="Add Data">
       <div className="space-y-4 p-6">
         <BaseInput
           label="Username"
-          value={form?.username}
           onChange={(evt) =>
             setForm({
               ...form,
@@ -49,7 +48,6 @@ const AddData = ({ id }) => {
         />
         <BaseInput
           label="Email"
-          value={form?.email}
           onChange={(evt) =>
             setForm({
               ...form,
@@ -59,7 +57,6 @@ const AddData = ({ id }) => {
         />
         <BaseInput
           label="Role"
-          value={form?.role}
           onChange={(evt) =>
             setForm({
               ...form,
@@ -69,7 +66,6 @@ const AddData = ({ id }) => {
         />
         <BaseInput
           label="First Name"
-          value={form?.firstName}
           onChange={(evt) =>
             setForm({
               ...form,
@@ -79,7 +75,6 @@ const AddData = ({ id }) => {
         />
         <BaseInput
           label="Last Name"
-          value={form?.lastName}
           onChange={(evt) =>
             setForm({
               ...form,
