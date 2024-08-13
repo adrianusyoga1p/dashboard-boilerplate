@@ -65,8 +65,8 @@ const Dashboard = () => {
     action: (data) => (
       <>
         <div className="flex justify-center gap-2 items-center">
-          <ModalButton id={data.id}>Edit</ModalButton>
-          <BaseButton color="red" onClick={() => handleDelete(data.id)}>
+          <ModalButton size="sm" id={data.id}>Edit</ModalButton>
+          <BaseButton color="red" size="sm" onClick={() => handleDelete(data.id)}>
             Delete
           </BaseButton>
         </div>
