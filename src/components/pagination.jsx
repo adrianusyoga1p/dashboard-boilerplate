@@ -28,7 +28,7 @@ const Pagination = ({ total, limit, onPageChange, page }) => {
   }
 
   return (
-    <div className="flex items-center mt-4 gap-3 justify-center text-sm">
+    <div className="flex items-center mt-4 gap-2 justify-center text-sm">
       {currentPage > 1 && (
         <button
           onClick={() => handlePageChange(currentPage - 1)}
