@@ -18,7 +18,7 @@ const Login = () => {
     evt.preventDefault();
     const response = await apiLogin(form.username, form.password);
     if (!response.error) {
-      dispatch(login({ user: response, token: response.token }));
+      dispatch(login({ user: response, token: response.accessToken }));
     } else {
       console.error("Login failed:", response.error);
     }
